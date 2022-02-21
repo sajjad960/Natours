@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const tourRouter = require('./routs/tourRouters');
 const tourUser = require('./routs/userRouters');
@@ -21,7 +22,9 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
-app.use(express.json());
+// Body parser, reading data from body into req.body
+
+app.use(express.json({limit: '10kb'}));
 
 app.use(express.static('./public'));
 
