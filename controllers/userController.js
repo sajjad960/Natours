@@ -20,10 +20,10 @@ exports.getAllUsers = async (req, res, next) => {
       message: error,
     });
   }
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not define this time',
-  });
+  // res.status(500).json({
+  //   status: 'error',
+  //   message: 'This route is not define this time',
+  // });
 };
 exports.createUser = (req, res) => {
   res.status(500).json({
