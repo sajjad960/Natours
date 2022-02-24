@@ -2,12 +2,14 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const hpp = require('hpp')
+
 const tourRouter = require('./routs/tourRouters');
 const tourUser = require('./routs/userRouters');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean');
 
 const app = express();
 
@@ -15,7 +17,6 @@ const app = express();
 
 //Set security HTTP headers
 app.use(helmet());
-
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -38,6 +39,9 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
+
+// Prevent parameter pollution
+app.use(hpp());
 
 app.use(express.static('./public'));
 
