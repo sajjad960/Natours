@@ -41,7 +41,11 @@ app.use(mongoSanitize());
 app.use(xss());
 
 // Prevent parameter pollution
-app.use(hpp());
+app.use(
+  hpp({
+    whitelist: ['duration'], // declare here all witelisted feild
+  })
+);
 
 app.use(express.static('./public'));
 
