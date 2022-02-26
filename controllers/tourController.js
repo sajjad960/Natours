@@ -87,6 +87,8 @@ exports.getAllTours = async (req, res, next) => {
     // }
 
     //EXECUTE QUERY
+    const tourscheck = await Tour.find();
+    console.log(tourscheck.length);
     const features = new APIFeatures(Tour.find(), req.query)
       .filter()
       .sort()
