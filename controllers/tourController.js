@@ -111,7 +111,15 @@ exports.getAllTours = async (req, res, next) => {
 
 exports.getTour = async (req, res, next) => {
   try {
-    const tour = await Tour.findById(req.params.id);
+    //Populate study
+    // the schema guide field only contains the refference and with POPUlate gonna fill up the data. 
+    // when releation is needed populate comes in
+    //but it not for big big work, coz it's also a query
+
+    const tour = await Tour.findById(req.params.id).populate({
+      path: 'guides',
+      select: '-__v -passwordChangedAt',
+    });
     //same like
     //Tour.findOne({_id: req.params.id})
 

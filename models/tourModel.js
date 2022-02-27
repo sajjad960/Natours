@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const User = require('./userModel');
+const User = require('./userModel');
 // const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
@@ -99,7 +99,7 @@ const tourSchema = new mongoose.Schema(
     guides: [
       {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        ref: 'Users',
       },
     ],
   }
@@ -120,10 +120,21 @@ const tourSchema = new mongoose.Schema(
 //   next();
 // });
 
-tourSchema.pre('find', function (next) {
+tourSchema.pre(/^find/, function (next) {
   this.find({ secretTour: { $ne: true } });
   next();
 });
+
+// making a pre query for pupulate
+// for any find
+// tourSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: 'guides',
+//     select: '-__v -passwordChangedAt',
+//   });
+// });
+
+
 
 //Aggregation middleWare
 
