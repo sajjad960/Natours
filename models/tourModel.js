@@ -103,6 +103,7 @@ const tourSchema = new mongoose.Schema(
       },
     ],
   }
+  // for this it's never save in db
   // {
   //   toJson: { virtuals: true },
   //   toObject: { virtuals: true },
