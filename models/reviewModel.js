@@ -32,6 +32,10 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+//creating a test schema indexing
+//sometimes this type index doesn't get set immidiately
+reviewSchema.index({tour: 1, user: 1}, {unique: true})
+
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'users',
