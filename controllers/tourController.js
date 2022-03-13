@@ -96,6 +96,9 @@ exports.getAllTours = async (req, res, next) => {
       .paginate();
     const tours = await features.query;
 
+    //for checking indexing speed
+    // const tours = await features.query.explain();
+
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
